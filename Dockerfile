@@ -1,26 +1,26 @@
-FROM conda/miniconda2
+FROM ubuntu
+RUN apt update
+RUN apt install -y wget bzip2
+WORKDIR /opt
+RUN wget -O Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" -O Mambaforge.sh
+RUN bash Mambaforge.sh -b -p /opt/miniconda
+RUN rm  Mambaforge.sh
+    #add channels
+
+
 
 # install dependencies
-RUN apt update
-RUN apt-get --yes install default-jre
-RUN apt-get --yes install bedtools
-RUN apt-get --yes install bowtie2
-RUN apt-get --yes install samtools
-RUN apt-get --yes install wget 
+# RUN apt-get --yes install default-jre
+ENV PATH="/opt/miniconda/envs/py2715/bin:/opt/miniconda/bin:$PATH"
+RUN conda config --add channels defaults
+RUN conda config --add channels bioconda
+RUN conda config --add channels conda-forge
 
-# Install DeepARG 1.0.2
-RUN pip install deeparg==1.0.2
+RUN mamba install -c bioconda trimmomatic vsearch bedtools bowtie2 samtools diamond -y
+RUN mamba create -n  py2715 python=2.7.15
+WORKDIR /workspace
+COPY . /workspace
+RUN pip install .
+RUN rm -rf *
 
-# Download data
-RUN deeparg download_data -o ~/deeparg/
-
-# Move diamond 
-RUN cp ~/deeparg/bin/diamond /bin/diamond
-RUN chmod +x /bin/diamond
-
-RUN yes | conda install -c bioconda trimmomatic
-RUN yes | conda install -c bioconda vsearch
-RUN yes | conda install -c bioconda bedtools
-RUN yes | conda install -c bioconda bowtie2
-RUN yes | conda install -c bioconda samtools
-
+#  mamba init bash
