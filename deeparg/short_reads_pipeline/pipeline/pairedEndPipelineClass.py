@@ -4,6 +4,7 @@ import deeparg.short_reads_pipeline.tools.deepargClass as deeparg
 import deeparg.short_reads_pipeline.quantification.quantificationClass as quant
 import deeparg.short_reads_pipeline.pipeline.d16spipelineClass as D16sPipe
 import deeparg.short_reads_pipeline.quantification.normalizationClass as norm
+import deeparg.short_reads_pipeline.quantification.normalizeTavgG as normalizeTavgG
 
 import os
 
@@ -46,3 +47,7 @@ class PairedEnd():
             float(self.data['parameters']['coverage'])/100,
             self.data['parameters']
         )
+        normalizeTavgG.normalize(
+            self.sample_name + '.clean.deeparg.mapping.ARG.merged.quant'
+        )
+
