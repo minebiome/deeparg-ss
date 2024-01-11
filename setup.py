@@ -21,7 +21,8 @@ setup(
         'requests==2.18.4',
         'wget==3.2',
         'tabulate==0.8.7',
-        'nolearn==0.6.0'
+        'nolearn==0.6.0',
+        'numpy==1.26.3'
         
     ],
     python_requires=">=2.7.15,!=3.*",
