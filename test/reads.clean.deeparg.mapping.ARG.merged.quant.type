@@ -1,0 +1,10 @@
+#ARG-category	ReadCount	16s-NormalizedReadCount
+aminoglycoside	6	0.770444763271
+peptide	1	0.0900176012069
+aminoglycoside:aminocoumarin	1	0.0764263222501
+multidrug	29	2.60379961126
+tetracycline	1	0.0831591173055
+phenicol	3	0.2993728223
+beta-lactam	2	0.179111944966
+fosmidomycin	3	0.255562165378
+glycopeptide	3	0.457556715305
