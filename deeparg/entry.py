@@ -171,7 +171,11 @@ def main():
                         help="minimum coverage required for considering a full gene in percentage. This parameter looks at the full gene and all hits that align to the gene. If the overlap of all hits is below the threshold the gene is discarded. Use with caution [default 1]",)
     short_reads_pipeline_parser.add_argument("--bowtie_16s_identity", type=float, default=0.8,
                         help="minimum identity a read as a 16s rRNA gene [default 0.8]",)
-
+    short_reads_pipeline_parser.add_argument("--skip_trimmomatic", type=bool, default=False,
+                        help="whether to skip trimmomatic [default False]",)
+    short_reads_pipeline_parser.add_argument("--skip_normalize_16", type=bool, default=False,
+                    help="whether to skip normalize 16 [default False]",)
+    
     # short_reads_pipeline_parser.add_argument("--path_to_executables", type=str, default="/deeparg/short_reads_pipeline/bin/",
     #                     help="path to ./bin/ under short_reads_pipeline",)
 

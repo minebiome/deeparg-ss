@@ -20,10 +20,12 @@ class PairedEnd():
         self.data = data
 
     def run(self):
-
-        print('Step 1: Trimming and QC using Trimmomatic')
-        if not trim.pairedEnd(self.pairedR1File, self.pairedR2File):
-            return 0
+        if(self.data['parameters']['skip_trimmomatic']) :
+            print('Step 1: Trimming and QC using Trimmomatic')
+            if not trim.pairedEnd(self.pairedR1File, self.pairedR2File):
+                return 0
+        else:
+            print('>>>Step 1: Skip trimming and QC using Trimmomatic')
 
         print('\n\n\nStep 2: Merging paired end reads using Vsearch')
         if not vsearch.merge(self.pairedR1File+'.paired', self.pairedR2File+'.paired', self.sample_name):
@@ -36,17 +38,20 @@ class PairedEnd():
         print('\n\n\nStep 4: Quantification of ARG-like counts')
         if not quant.merge(self.sample_name+'.clean.deeparg.mapping.ARG', self.data['deep_arg_parameters']['data_path']):
             return 0
+        
+        if(self.data['parameters']['skip_normalize_16s']) :
+            print('\n\n\nStep 5: Normalize to 16S rRNAs - this may take a while ...')
+            if not d16sPipe.run(self.sample_name+'.clean', ggdata="{}/data/gg13/dataset".format(self.data['deep_arg_parameters']['data_path'], )):
+                return 0
 
-        print('\n\n\nStep 5: Normalize to 16S rRNAs - this may take a while ...')
-        if not d16sPipe.run(self.sample_name+'.clean', ggdata="{}/data/gg13/dataset".format(self.data['deep_arg_parameters']['data_path'], )):
-            return 0
-
-        norm.normalize(
-            self.sample_name + '.clean.sorted.bam.merged.quant',
-            self.sample_name + '.clean.deeparg.mapping.ARG.merged.quant',
-            float(self.data['parameters']['coverage'])/100,
-            self.data['parameters']
-        )
+            norm.normalize(
+                self.sample_name + '.clean.sorted.bam.merged.quant',
+                self.sample_name + '.clean.deeparg.mapping.ARG.merged.quant',
+                float(self.data['parameters']['coverage'])/100,
+                self.data['parameters']
+            )
+        else:
+             print('\n\n\n>>>Step 5: SkipNormalize to 16S rRNAs - this may take a while ...')
         normalizeTavgG.normalize(
             self.sample_name + '.clean.deeparg.mapping.ARG.merged.quant'
         )
