@@ -41,9 +41,8 @@ class PairedEnd():
         
         if(self.data['parameters']['skip_normalize_16s']) :
             print('\n\n\n>>>Step 5: SkipNormalize to 16S rRNAs - this may take a while ...')
-            print('\n\n\nStep 5: Normalize to 16S rRNAs - this may take a while ...')
-
         else:
+            print('\n\n\nStep 5: Normalize to 16S rRNAs - this may take a while ...')
             if not d16sPipe.run(self.sample_name+'.clean', ggdata="{}/data/gg13/dataset".format(self.data['deep_arg_parameters']['data_path'], )):
                 return 0
             norm.normalize(
