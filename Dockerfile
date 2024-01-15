@@ -22,5 +22,5 @@ WORKDIR /workspace
 COPY . /workspace
 RUN pip install .
 RUN rm -rf *
-
+RUN useradd -m -u 1011  -g 0 shanjun 
 #  mamba init bash
