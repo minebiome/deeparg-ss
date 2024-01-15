@@ -173,7 +173,7 @@ def main():
                         help="minimum identity a read as a 16s rRNA gene [default 0.8]",)
     short_reads_pipeline_parser.add_argument("--skip_trimmomatic", type=bool, default=False,
                         help="whether to skip trimmomatic [default False]",)
-    short_reads_pipeline_parser.add_argument("--skip_normalize_16", type=bool, default=False,
+    short_reads_pipeline_parser.add_argument("--skip_normalize_16s", type=bool, default=False,
                     help="whether to skip normalize 16 [default False]",)
     
     # short_reads_pipeline_parser.add_argument("--path_to_executables", type=str, default="/deeparg/short_reads_pipeline/bin/",

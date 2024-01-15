@@ -20,7 +20,7 @@ def main(args):
         coverage=args.gene_coverage,
         identity_16s_alignment=args.bowtie_16s_identity,
         skip_trimmomatic=args.skip_trimmomatic,
-        skip_normalize_16=args.skip_normalize_16
+        skip_normalize_16s=args.skip_normalize_16s
     )
 
     data = dict(
